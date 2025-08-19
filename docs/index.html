@@ -5,53 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Car Service Booking</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      padding: 2rem;
-    }
-    form {
-      background: #fff;
-      padding: 2rem;
-      border-radius: 8px;
-      max-width: 600px;
-      margin: 0 auto;
-      box-shadow: 0 2px 8px rgba(0,0,0,.1);
-    }
-    .field {
-      margin-bottom: 1rem;
-    }
-    label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: .25rem;
-    }
-    input {
-      width: 100%;
-      padding: .75rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      padding: .75rem 1.25rem;
-      border: none;
-      border-radius: 6px;
-      background: #007BFF;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #0056b3;
-    }
+    body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 2rem; }
+    form { background: #fff; padding: 2rem; border-radius: 8px; max-width: 600px; margin: 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+    .field { margin-bottom: 1rem; }
+    label { display: block; font-weight: 600; margin-bottom: .25rem; }
+    input { width: 100%; padding: .75rem; border: 1px solid #ccc; border-radius: 4px; }
+    button { padding: .75rem 1.25rem; border: none; border-radius: 6px; background: #007BFF; color: white; font-size: 1rem; cursor: pointer; }
+    button:hover { background: #0056b3; }
   </style>
+
+  <!-- ✅ Segment Analytics.js Snippet -->
+  <script>
+    !function(){var analytics=window.analytics=window.analytics||[];
+    if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");
+    else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];
+    analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};
+    for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}
+    analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;
+    e.src="https://cdn.segment.com/analytics.js/v1/" + t + "/analytics.min.js";
+    var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};
+    analytics.SNIPPET_VERSION="4.15.3";
+    analytics.load("YOUR_WRITE_KEY"); // ⬅️ Replace with your Segment Write Key
+    analytics.page();
+    }}();
+  </script>
 </head>
 <body>
   <h1 style="text-align:center;">Book a Car Service Appointment</h1>
 
-  <!-- The form posts directly to your Twilio Function -->
+  <!-- The form posts to Twilio Function -->
   <form action="https://car-service-demo-twilio-3980-dev.twil.io/submit" method="POST" id="bookingForm" autocomplete="on">
-    
     <div class="field">
       <label for="firstName">First Name</label>
       <input type="text" id="firstName" name="firstName" placeholder="Jane" required />
@@ -86,5 +69,14 @@
       <button type="submit">Submit</button>
     </div>
   </form>
+
+  <!-- (Optional) Track form submission client-side -->
+  <script>
+    document.getElementById('bookingForm').addEventListener('submit', function() {
+      analytics.track('Form Submitted', {
+        form: 'Car Service Booking'
+      });
+    });
+  </script>
 </body>
 </html>
